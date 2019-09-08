@@ -2,5 +2,6 @@ export enum EPerfil
 {
 	admin = 'admin', 
 	invitado = 'invitado', 
-	usuario = 'usuario'
+	usuario = 'usuario',
+	tester = 'tester'
 }
