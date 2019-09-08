@@ -15,12 +15,12 @@
 
   <div class="container">
     <label for="uname"><b>E-Mail</b></label>
-    <input type="text" placeholder="Ingrese su E-Mail" name="uname" required>
+    <input [(ngModel)]="correo" type="email" placeholder="Ingrese su E-Mail" name="uname" required>
 
     <label for="psw"><b>Clave</b></label>
-    <input type="password" placeholder="Ingrese su clave" name="psw" required>
+    <input [(ngModel)]="clave" type="password" placeholder="Ingrese su clave" name="psw" required>
 
-    <button type="button">Ingresar</button>
+    <button *ngIf="mostrarBoton()" type="button">Ingresar</button>
   </div>
 </form>
 </ion-content>
