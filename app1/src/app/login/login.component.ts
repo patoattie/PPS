@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
-import { Firestore } from '@google-cloud/firestore'
+//import { Firestore } from '@google-cloud/firestore';
 
 @Component({
   selector: 'app-login',
@@ -11,23 +11,24 @@ export class LoginComponent implements OnInit
 {
   public correo: string;
   public clave: string;
-  private db: Firestore;
-  private usuarios: Usuario[];
+  //private db: Firestore;
+  //private usuarios: Usuario[];
 
   constructor() 
   {
   	this.correo = '';
   	this.clave = '';
-  	this.db = new Firestore(
+/*  	this.db = new Firestore(
   		{
   			projectId: 'pps1-80161',
-  			keyFilename: '../../../platforms/android/app/google-services.json',
+  			//keyFilename: '../../../platforms/android/app/google-services.json',
+  			credentials: {client_email: 'patoattie@gmail.com', private_key: ''},
   		});
   	this.usuarios = new Array();
 this.db.doc('Usuarios').get().then((querySnapshot) => 
 {
 	this.usuarios.push(new Usuario(querySnapshot.get('id'), querySnapshot.get('correo'), querySnapshot.get('clave'), querySnapshot.get('perfil'), querySnapshot.get('sexo')));
-});
+});*/
 
   }
 
