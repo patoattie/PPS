@@ -14,13 +14,16 @@
   </div>
 
   <div class="container">
+    <ion-item color="danger" *ngIf="error">
+      <ion-label>E-Mail inexistente o Clave incorrecta</ion-label>
+    </ion-item>
     <label for="uname"><b>E-Mail</b></label>
     <input [(ngModel)]="correo" type="email" placeholder="Ingrese su E-Mail" name="uname" required>
 
     <label for="psw"><b>Clave</b></label>
     <input [(ngModel)]="clave" type="password" placeholder="Ingrese su clave" name="psw" required>
 
-    <button *ngIf="mostrarBoton()" type="button">Ingresar</button>
+    <ion-button expand="block" fill="solid" color="success" *ngIf="mostrarBoton()" type="button" (click)="verificarUsuario()">Ingresar</ion-button>
   </div>
 </form>
 </ion-content>

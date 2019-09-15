@@ -20,10 +20,41 @@ export class LoginService
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
+          const idCollection = a.payload.doc.id;
+          return { idCollection, ...data };
         });
       })
     );
+  }
+
+  getUsuarios(): Observable<Usuario[]> 
+  {
+    return this.usuarios;
+  }
+ 
+  getUsuario(idCollection: string): Observable<Usuario> 
+  {
+    return this.usuarioCollection.doc<Usuario>(idCollection).valueChanges().pipe(
+      take(1),
+      map(usuario => {
+        usuario.idCollection = idCollection;
+        return usuario
+      })
+    );
+  }
+
+  addUsuario(usuario: Usuario): Promise<DocumentReference> 
+  {
+    return this.usuarioCollection.add(usuario);
+  }
+ 
+  updateUsuario(usuario: Usuario): Promise<void> 
+  {
+    return this.usuarioCollection.doc(usuario.idCollection).update({ id: usuario.id, correo: usuario.correo, clave: usuario.clave, perfil: usuario.perfil, sexo: usuario.sexo });
+  }
+ 
+  deleteUsuario(idCollection: string): Promise<void> 
+  {
+    return this.usuarioCollection.doc(idCollection).delete();
   }
 }

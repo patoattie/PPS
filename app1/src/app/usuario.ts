@@ -3,13 +3,14 @@ import { ESexo } from './esexo.enum';
 
 export class Usuario 
 {
+	public idCollection: string;
 	public id: number;
 	public correo: string;
 	public clave: string;
 	public perfil: EPerfil;
 	public sexo: ESexo;
-	public ok: boolean;
-	public error: boolean;
+	//public ok: boolean;
+	//public error: boolean;
 
 	constructor(id?: number, correo?: string, clave?: string, perfil?: EPerfil, sexo?: ESexo)
 	{
@@ -18,7 +19,12 @@ export class Usuario
 		this.clave = clave;
 		this.perfil = perfil;
 		this.sexo = sexo;
-		this.error = false;
-		this.ok = false;
+		//this.error = false;
+		//this.ok = false;
+	}
+
+	public static esIgual(unUsuario: Usuario, correo: string, clave: string): boolean
+	{
+		return (unUsuario.correo == correo && unUsuario.clave == clave);
 	}
 }
