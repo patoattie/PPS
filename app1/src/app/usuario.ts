@@ -23,8 +23,8 @@ export class Usuario
 		//this.ok = false;
 	}
 
-	public static esIgual(unUsuario: Usuario, correo: string, clave: string): boolean
+	/*public esIgual(correo: string, clave: string): boolean
 	{
-		return (unUsuario.correo == correo && unUsuario.clave == clave);
-	}
+		return (this.correo == correo && this.clave == clave);
+	}*/
 }

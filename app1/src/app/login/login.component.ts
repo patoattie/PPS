@@ -19,13 +19,13 @@ export class LoginComponent implements OnInit
 
   constructor(private loginService: LoginService) 
   {
-  	this.correo = '';
-  	this.clave = '';
-    this.error = false;
   }
 
   ngOnInit() 
   {
+    this.correo = '';
+    this.clave = '';
+    this.error;// = false;
     this.usuarios = this.loginService.getUsuarios();
   }
 
@@ -43,16 +43,26 @@ export class LoginComponent implements OnInit
       usuarios.forEach(unUsuario =>
       {
         console.info(unUsuario);
-        if(Usuario.esIgual(unUsuario, this.correo, this.clave))
+        console.info(this.correo);
+        console.info(this.clave);
+        console.info(retorno);
+        console.info(this.error);
+        //if(unUsuario.esIgual(this.correo, this.clave))
+        if(unUsuario.correo == this.correo && unUsuario.clave == this.clave)
         {
           retorno = true;
         }
       });
     });
 
-  this.error = !retorno;
+    this.error = !(retorno);
 
-  return retorno;
+    return retorno;
+  }
+
+  public getError(): boolean
+  {
+    return this.error;
   }
 
 }

@@ -14,7 +14,7 @@
   </div>
 
   <div class="container">
-    <ion-item color="danger" *ngIf="error">
+    <ion-item color="danger" *ngIf="getError()">
       <ion-label>E-Mail inexistente o Clave incorrecta</ion-label>
     </ion-item>
     <label for="uname"><b>E-Mail</b></label>
