@@ -17,6 +17,9 @@
     <ion-item color="danger" *ngIf="getError()">
       <ion-label>E-Mail inexistente o Clave incorrecta</ion-label>
     </ion-item>
+    <ion-item color="success" *ngIf="getOk()">
+      <ion-label>Login OK</ion-label>
+    </ion-item>
     <label for="uname"><b>E-Mail</b></label>
     <input [(ngModel)]="correo" type="email" placeholder="Ingrese su E-Mail" name="uname" required>
 

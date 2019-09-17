@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 import { Usuario } from '../usuario';
 import { LoginService } from './login.service';
-//import { Firestore } from '@google-cloud/firestore';
 
 @Component({
   selector: 'app-login',
@@ -14,19 +13,22 @@ export class LoginComponent implements OnInit
 {
   public correo: string;
   public clave: string;
+  public ok: boolean;
   public error: boolean;
-  private usuarios: Observable<Usuario[]>;
+  private usuarios: Usuario[];
 
-  constructor(private loginService: LoginService) 
-  {
-  }
+  constructor(private loginService: LoginService) { }
 
   ngOnInit() 
   {
     this.correo = '';
     this.clave = '';
-    this.error;// = false;
-    this.usuarios = this.loginService.getUsuarios();
+    this.ok = false;
+    this.error = false;
+    this.loginService.getUsuarios().subscribe(
+      usuarios => this.usuarios = usuarios,
+      error => console.info(error)
+    );
   }
 
   public mostrarBoton(): boolean
@@ -37,27 +39,23 @@ export class LoginComponent implements OnInit
   public verificarUsuario(): boolean
   {
     let retorno: boolean = false;
-
-    this.usuarios.forEach(usuarios =>
+    this.usuarios.forEach(unUsuario =>
     {
-      usuarios.forEach(unUsuario =>
+      if(unUsuario.correo == this.correo && unUsuario.clave == this.clave)
       {
-        console.info(unUsuario);
-        console.info(this.correo);
-        console.info(this.clave);
-        console.info(retorno);
-        console.info(this.error);
-        //if(unUsuario.esIgual(this.correo, this.clave))
-        if(unUsuario.correo == this.correo && unUsuario.clave == this.clave)
-        {
           retorno = true;
-        }
-      });
+      }
     });
 
     this.error = !(retorno);
+    this.ok = retorno;
 
     return retorno;
+  }
+
+  public getOk(): boolean
+  {
+    return this.ok;
   }
 
   public getError(): boolean
