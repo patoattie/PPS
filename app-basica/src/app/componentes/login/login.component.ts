@@ -12,8 +12,8 @@ import { LoginService } from '../../servicios/login.service';
 })
 export class LoginComponent implements OnInit 
 {
-  public correo: string;
-  public clave: string;
+  //public correo: string;
+  //public clave: string;
   public ok: boolean;
   public error: boolean;
   private formulario: FormGroup;
@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit
 
   ngOnInit() 
   {
-    this.correo = '';
-    this.clave = '';
+    //this.correo = '';
+    //this.clave = '';
     this.ok = false;
     this.error = false;
     this.errorDatos = false;
@@ -42,19 +42,18 @@ export class LoginComponent implements OnInit
     );
   }
 
-  public mostrarBoton(): boolean
+  /*public mostrarBoton(): boolean
   {
   	return (this.clave.trim().length > 0 && this.correo.trim().length > 0);
-  }
+  }*/
 
   private verificarUsuario(): boolean
   {
     let retorno: boolean = false;
-    let valores: any = this.formulario.value;
     this.usuarios.forEach(unUsuario =>
     {
       //if(unUsuario.correo == this.correo && unUsuario.clave == this.clave)
-      if(unUsuario.correo == valores && unUsuario.clave == this.clave)
+      if(unUsuario.correo == this.formulario.value.correo && unUsuario.clave == this.formulario.value.clave)
       {
           retorno = true;
       }
