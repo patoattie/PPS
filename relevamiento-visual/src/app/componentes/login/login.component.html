@@ -8,24 +8,25 @@
 
 <ion-content>
   <form action="#">
-    <div class="imgcontainer">
-      <img src="../../assets/img/img_avatar2.png" alt="Avatar" class="avatar">
-    </div>
+    <ion-avatar>
+      <img src="../../../assets/img/img_avatar2.png" alt="Avatar">
+    </ion-avatar>
   
-    <div class="container">
-      <ion-item color="danger" *ngIf="getError()">
-        <ion-label>E-Mail inexistente o Clave incorrecta</ion-label>
-      </ion-item>
-      <ion-item color="success" *ngIf="getOk()">
-        <ion-label>Login OK</ion-label>
-      </ion-item>
-      <label for="uname"><b>E-Mail</b></label>
-      <input [(ngModel)]="correo" type="email" placeholder="Ingrese su E-Mail" name="uname" required>
-  
-      <label for="psw"><b>Clave</b></label>
-      <input [(ngModel)]="clave" type="password" placeholder="Ingrese su clave" name="psw" required>
-  
-      <ion-button expand="block" fill="solid" color="success" *ngIf="mostrarBoton()" type="button" (click)="verificarUsuario()">Ingresar</ion-button>
-    </div>
+    <ion-item color="danger" *ngIf="getError()">
+      <ion-label>E-Mail inexistente o Clave incorrecta</ion-label>
+    </ion-item>
+    <ion-item color="success" *ngIf="getOk()">
+      <ion-label>Login OK</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>E-Mail</ion-label>
+      <ion-input [(ngModel)]="correo" type="email" inputmode="email" autofocus placeholder="Ingrese su E-Mail" name="uname" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Clave</ion-label>
+      <ion-input [(ngModel)]="clave" type="password" placeholder="Ingrese su clave" name="psw" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" fill="solid" color="success" type="submit" (click)="verificarUsuario()">Ingresar</ion-button>
   </form>
 </ion-content>
