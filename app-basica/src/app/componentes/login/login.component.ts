@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Usuario } from '../../clases/usuario';
 import { LoginService } from '../../servicios/login.service';
@@ -15,9 +16,18 @@ export class LoginComponent implements OnInit
   public clave: string;
   public ok: boolean;
   public error: boolean;
+  private formulario: FormGroup;
   private usuarios: Usuario[];
+  public errorDatos: boolean;
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, formBuilder: FormBuilder) 
+  {
+    this.formulario = formBuilder.group(
+      {
+        correo: ['', Validators.compose([Validators.pattern("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"), Validators.required])],
+        clave: ['', Validators.compose([Validators.required])]
+      });
+  }
 
   ngOnInit() 
   {
@@ -25,6 +35,7 @@ export class LoginComponent implements OnInit
     this.clave = '';
     this.ok = false;
     this.error = false;
+    this.errorDatos = false;
     this.loginService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios,
       error => console.info(error)
@@ -36,19 +47,21 @@ export class LoginComponent implements OnInit
   	return (this.clave.trim().length > 0 && this.correo.trim().length > 0);
   }
 
-  public verificarUsuario(): boolean
+  private verificarUsuario(): boolean
   {
     let retorno: boolean = false;
+    let valores: any = this.formulario.value;
     this.usuarios.forEach(unUsuario =>
     {
-      if(unUsuario.correo == this.correo && unUsuario.clave == this.clave)
+      //if(unUsuario.correo == this.correo && unUsuario.clave == this.clave)
+      if(unUsuario.correo == valores && unUsuario.clave == this.clave)
       {
           retorno = true;
       }
     });
 
-    this.error = !(retorno);
-    this.ok = retorno;
+    /*this.error = !(retorno);
+    this.ok = retorno;*/
 
     return retorno;
   }
@@ -61,6 +74,25 @@ export class LoginComponent implements OnInit
   public getError(): boolean
   {
     return this.error;
+  }
+
+  public login(): void
+  {
+    let usuarioValido: boolean;
+
+    if(this.formulario.valid)
+    {
+      usuarioValido = this.verificarUsuario();
+      this.error = !usuarioValido;
+      this.ok = usuarioValido;
+      this.errorDatos = false;
+    }
+    else
+    {
+      this.error = false;
+      this.ok = false;
+      this.errorDatos = true;
+    }
   }
 
 }

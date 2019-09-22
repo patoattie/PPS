@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>
       Relevamiento Visual
     </ion-title>
@@ -7,26 +10,31 @@
 </ion-header>
 
 <ion-content>
-  <form action="#">
-    <ion-avatar>
-      <img src="../../../assets/img/img_avatar2.png" alt="Avatar">
-    </ion-avatar>
-  
-    <ion-item color="danger" *ngIf="getError()">
-      <ion-label>E-Mail inexistente o Clave incorrecta</ion-label>
-    </ion-item>
-    <ion-item color="success" *ngIf="getOk()">
-      <ion-label>Login OK</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>E-Mail</ion-label>
-      <ion-input [(ngModel)]="correo" type="email" inputmode="email" autofocus placeholder="Ingrese su E-Mail" name="uname" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Clave</ion-label>
-      <ion-input [(ngModel)]="clave" type="password" placeholder="Ingrese su clave" name="psw" required></ion-input>
-    </ion-item>
+  <ion-avatar>
+    <img src="../../../assets/img/img_avatar2.png" alt="Avatar">
+  </ion-avatar>
 
-    <ion-button expand="block" fill="solid" color="success" type="submit" (click)="verificarUsuario()">Ingresar</ion-button>
-  </form>
+  <p *ngIf="errorDatos" style="color: #ea6153;">Por favor verificá que hayas ingresado un E-Mail válido y una Clave.</p>
+  <ion-list lines="none">
+    <form [formGroup]="formulario">
+      <ion-item color="danger" *ngIf="getError()">
+        <ion-label>E-Mail inexistente o Clave incorrecta</ion-label>
+      </ion-item>
+      <ion-item color="success" *ngIf="getOk()">
+        <ion-label>Login OK</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>E-Mail</ion-label>
+        <!-- <ion-input [(ngModel)]="correo" formControlName="correo" type="email" inputmode="email" autofocus placeholder="Ingrese su E-Mail" name="uname" required></ion-input> -->
+        <ion-input formControlName="correo" type="email" inputmode="email" autofocus placeholder="Ingrese su E-Mail" name="uname" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Clave</ion-label>
+        <!-- <ion-input [(ngModel)]="clave" formControlName="clave" type="password" placeholder="Ingrese su clave" name="psw" required></ion-input> -->
+        <ion-input formControlName="clave" type="password" placeholder="Ingrese su clave" name="psw" required></ion-input>
+      </ion-item>
+    </form>
+  </ion-list>
+
+  <ion-button expand="block" fill="solid" color="success" type="button" (click)="login()">Ingresar</ion-button>
 </ion-content>
