@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { LoginComponent } from './componentes/login/login.component';
 
@@ -28,6 +29,7 @@ import { LoginComponent } from './componentes/login/login.component';
   	ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule,
   	AppRoutingModule
   ],
   providers: [
