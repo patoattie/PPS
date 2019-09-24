@@ -9,6 +9,10 @@ export class Usuario
 	public clave: string;
 	public perfil: EPerfil;
 	public sexo: ESexo;
+	public uid: string;
+	public displayName: string;
+	public fotoURL: string;
+	public emailVerificado: boolean;
 	//public ok: boolean;
 	//public error: boolean;
 

@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit
 
     this.authService.doLogin(this.formulario.value.correo, this.formulario.value.clave);
 
-    retorno = this.authService.hayUsuarioLogueado();
+    retorno = this.authService.getUser().length > 0;
 
     if(retorno)
     {
