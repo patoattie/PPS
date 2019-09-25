@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { Usuario } from '../../clases/usuario';
@@ -33,28 +32,24 @@ export class LoginComponent implements OnInit
     this.ok = false;
     this.error = false;
     this.errorDatos = false;
+
     this.loginService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios,
       error => console.info(error)
     );
   }
 
-  /*public mostrarBoton(): boolean
-  {
-  	return (this.clave.trim().length > 0 && this.correo.trim().length > 0);
-  }*/
-
   private verificarUsuario(): boolean
   {
     let retorno: boolean = false;
-    /*this.usuarios.forEach(unUsuario =>
-    {
-      if(unUsuario.correo == this.formulario.value.correo && unUsuario.clave == this.formulario.value.clave)
-      {
-          retorno = true;
-      }
-    });*/
-
+//    this.usuarios.forEach(unUsuario =>
+//    {
+//      if(unUsuario.correo == this.formulario.value.correo && unUsuario.clave == this.formulario.value.clave)
+//      {
+//          retorno = true;
+//      }
+//    });
+    /* Lo depreco
     this.authService.doLogin(this.formulario.value.correo, this.formulario.value.clave);
 
     retorno = this.authService.getUser().length > 0;
@@ -63,7 +58,7 @@ export class LoginComponent implements OnInit
     {
       this.authService.doLogout();
     }
-
+    */
     return retorno;
   }
 
@@ -83,7 +78,7 @@ export class LoginComponent implements OnInit
 
     if(this.formulario.valid)
     {
-      //usuarioValido = this.verificarUsuario();
+      //usuarioValido = this.verificarUsuario(); //Lo depreco
       await this.authService.SignIn(this.formulario.value.correo, this.formulario.value.clave);
       usuarioValido = this.authService.isLoggedIn();
       this.error = !usuarioValido;
