@@ -109,7 +109,7 @@ export class AuthService {
       {
         /*this.ngZone.run(() => 
         {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['inicio']);
         });*/
         this.SetUserData(result.user);
         console.log("Login OK");
@@ -167,7 +167,7 @@ export class AuthService {
     return this.afAuth.auth.signInWithPopup(provider)
     .then((result) => {
        this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['inicio']);
         })
       this.SetUserData(result.user);
     }).catch((error) => {
