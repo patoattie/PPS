@@ -16,6 +16,7 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { LoginComponent } from './componentes/login/login.component';
+import { AuthService } from "./servicios/auth.service";
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { LoginComponent } from './componentes/login/login.component';
   providers: [
     StatusBar,
     SplashScreen,
+    AuthService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: FirestoreSettingsToken, useValue: {} }
   ],

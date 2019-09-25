@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
+
+import { Usuario } from "../interfaces/usuario";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public afs: AngularFirestore,   // Inject Firestore service
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
     public router: Router) 
     {
       /* Saving user data in localstorage when 
@@ -99,15 +102,21 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  SignIn(email, password) {
+  SignIn(email, password): Promise<any>
+  {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.ngZone.run(() => {
+      .then((result) => 
+      {
+        /*this.ngZone.run(() => 
+        {
           this.router.navigate(['dashboard']);
-        });
+        });*/
         this.SetUserData(result.user);
-      }).catch((error) => {
-        window.alert(error.message)
+        console.log("Login OK");
+      })
+      .catch((error) => 
+      {
+        console.log(error.code);
       })
   }
 
@@ -143,14 +152,14 @@ export class AuthService {
   }
 
   // Returns true when user is looged in and email is verified
-  get isLoggedIn(): boolean {
+  /*get*/ isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    return (user !== null /*&& user.emailVerified !== false*/) ? true : false;
   }
 
   // Sign in with Google
   GoogleAuth() {
-    return this.AuthLogin(new auth.GoogleAuthProvider());
+    return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
 
   // Auth logic to run auth providers
@@ -171,7 +180,7 @@ export class AuthService {
   provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
   SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const userData: User = {
+    const userData: Usuario = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
@@ -184,11 +193,19 @@ export class AuthService {
   }
 
   // Sign out 
-  SignOut() {
-    return this.afAuth.auth.signOut().then(() => {
+  SignOut() 
+  {
+    return this.afAuth.auth.signOut()
+    .then(() => 
+    {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      //this.router.navigate(['sign-in']);
+      console.log("Logout OK");
     })
+    .catch((error) => 
+    {
+      console.log(error.code);
+    });
   }
 
 }
