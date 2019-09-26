@@ -72,22 +72,22 @@ export class LoginComponent implements OnInit
     return this.error;
   }
 
-  public async login(): Promise<void>
+  public login(): void //Promise<void>
   {
     let usuarioValido: boolean;
 
     if(this.formulario.valid)
     {
       //usuarioValido = this.verificarUsuario(); //Lo depreco
-      await this.authService.SignIn(this.formulario.value.correo, this.formulario.value.clave);
+      /*await*/ this.authService.SignIn(this.formulario.value.correo, this.formulario.value.clave);
       usuarioValido = this.authService.isLoggedIn();
       this.error = !usuarioValido;
       this.ok = usuarioValido;
       this.errorDatos = false;
-      if(usuarioValido)
+      /*if(usuarioValido)
       {
         this.authService.SignOut();
-      }
+      }*/
     }
     else
     {

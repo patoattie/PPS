@@ -107,10 +107,10 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => 
       {
-        /*this.ngZone.run(() => 
+        this.ngZone.run(() => 
         {
           this.router.navigate(['inicio']);
-        });*/
+        });
         this.SetUserData(result.user);
         console.log("Login OK");
       })
