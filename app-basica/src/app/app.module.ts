@@ -16,11 +16,13 @@ import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/fi
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { LoginComponent } from './componentes/login/login.component';
+import { InicioComponent } from "./componentes/inicio/inicio.component";
 import { AuthService } from "./servicios/auth.service";
 
 @NgModule({
   declarations: [
   	AppComponent,
+  	InicioComponent,
   	LoginComponent
   ],
   entryComponents: [],
