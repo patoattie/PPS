@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { Usuario } from '../../clases/usuario';
+//import { Usuario } from '../../clases/usuario';
 import { LoginService } from '../../servicios/login.service';
 import { AuthService } from "../../servicios/auth.service";
 
@@ -12,11 +12,12 @@ import { AuthService } from "../../servicios/auth.service";
 })
 export class LoginComponent implements OnInit 
 {
-  public ok: boolean;
-  public error: boolean;
+  private ok: boolean; //Login OK
+  private error: boolean; //Login fallido
   private formulario: FormGroup;
-  private usuarios: Usuario[];
-  public errorDatos: boolean;
+  //private usuarios: Usuario[];
+  private errorDatos: boolean; //Error en el formato de datos de correo o clave
+  private enEspera: boolean; //Muestra u oculta el spinner
   
   constructor(private loginService: LoginService, private formBuilder: FormBuilder, public authService: AuthService) 
   {
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit
     this.ok = false;
     this.error = false;
     this.errorDatos = false;
+    this.enEspera = false;
 
     /*this.loginService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios,
@@ -39,17 +41,10 @@ export class LoginComponent implements OnInit
     );*/
   }
 
+  /* Lo depreco
   private verificarUsuario(): boolean
   {
     let retorno: boolean = false;
-//    this.usuarios.forEach(unUsuario =>
-//    {
-//      if(unUsuario.correo == this.formulario.value.correo && unUsuario.clave == this.formulario.value.clave)
-//      {
-//          retorno = true;
-//      }
-//    });
-    /* Lo depreco
     this.authService.doLogin(this.formulario.value.correo, this.formulario.value.clave);
 
     retorno = this.authService.getUser().length > 0;
@@ -58,9 +53,9 @@ export class LoginComponent implements OnInit
     {
       this.authService.doLogout();
     }
-    */
+
     return retorno;
-  }
+  }*/
 
   public getOk(): boolean
   {
@@ -72,9 +67,20 @@ export class LoginComponent implements OnInit
     return this.error;
   }
 
+  public getErrorDatos(): boolean
+  {
+    return this.errorDatos;
+  }
+
+  public getEnEspera(): boolean
+  {
+    return this.enEspera;
+  }
+
   public async login(): Promise<void>
   {
     let usuarioValido: boolean;
+    this.enEspera = true; //Muestro el spinner
 
     if(this.formulario.valid)
     {
@@ -84,10 +90,10 @@ export class LoginComponent implements OnInit
       this.error = !usuarioValido;
       this.ok = usuarioValido;
       this.errorDatos = false;
-      /*if(usuarioValido)
+      if(usuarioValido)
       {
-        this.authService.SignOut();
-      }*/
+        this.completarUsuario('blanquear');
+      }
     }
     else
     {
@@ -95,6 +101,32 @@ export class LoginComponent implements OnInit
       this.ok = false;
       this.errorDatos = true;
     }
+
+    this.enEspera = false; //Oculto el spinner
   }
 
+  public completarUsuario(perfil: string): void
+  {
+    switch(perfil)
+    {
+      case 'admin':
+        this.formulario.setValue({correo: 'admin@admin.com', clave: '111111'});
+        break;
+      case 'invitado':
+        this.formulario.setValue({correo: 'invitado@invitado.com', clave: '222222'});
+        break;
+      case 'usuario':
+        this.formulario.setValue({correo: 'usuario@usuario.com', clave: '333333'});
+        break;
+      case 'anonimo':
+        this.formulario.setValue({correo: 'anonimo@anonimo.com', clave: '444444'});
+        break;
+      case 'tester':
+        this.formulario.setValue({correo: 'tester@tester.com', clave: '555555'});
+        break;
+      default:
+        this.formulario.setValue({correo: '', clave: ''});
+        break;
+    }
+  }
 }

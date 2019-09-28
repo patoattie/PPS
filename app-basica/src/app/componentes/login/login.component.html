@@ -14,7 +14,6 @@
     <img src="../../../assets/img/img_avatar2.png" alt="Avatar">
   </ion-avatar>
 
-  <p *ngIf="errorDatos" style="color: #ea6153;">Por favor verificá que hayas ingresado un E-Mail válido y una Clave.</p>
   <ion-list lines="none">
     <form [formGroup]="formulario">
       <ion-item color="danger" *ngIf="getError()">
@@ -34,5 +33,34 @@
     </form>
   </ion-list>
 
-  <ion-button expand="block" fill="solid" color="success" type="button" (click)="login()">Ingresar</ion-button>
+  <ion-button expand="block" fill="solid" color="success" type="button" (click)="login()">
+    <ion-spinner name="lines-small" slot="end" *ngIf="getEnEspera()"></ion-spinner>
+    Ingresar
+  </ion-button>
+  <p *ngIf="getErrorDatos()" style="color: #ea6153;">Por favor verificá que hayas ingresado un E-Mail válido y una Clave.</p>
 </ion-content>
+
+<ion-footer>
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="light">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="start">
+      <ion-fab-button color="light" (click)="completarUsuario('admin')">
+        <img src="../../../assets/img/logAdmin.svg" alt="admin">
+      </ion-fab-button>
+      <ion-fab-button color="light" (click)="completarUsuario('invitado')">
+        <img src="../../../assets/img/logInvitado.svg" alt="invitado">
+      </ion-fab-button>
+      <ion-fab-button color="light" (click)="completarUsuario('usuario')">
+        <img src="../../../assets/img/logUsuario.svg" alt="usuario">
+      </ion-fab-button>
+      <ion-fab-button color="light" (click)="completarUsuario('anonimo')">
+        <img src="../../../assets/img/logAnonimo.svg" alt="anonimo">
+      </ion-fab-button>
+      <ion-fab-button color="light" (click)="completarUsuario('tester')">
+        <img src="../../../assets/img/logTester.svg" alt="tester">
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-footer>
