@@ -23,7 +23,7 @@
     <ion-avatar>
       <img src="../../../assets/img/usuario.png" alt="Usuario">
     </ion-avatar>
-    <ion-label>{{authService.getUserData().email}}</ion-label>
+    <ion-label>{{authService.getUserData().email}}({{getDatoUsuario('perfil')}}|{{getDatoUsuario('sexo')}})</ion-label>
     <!-- <ion-icon name="close-circle"></ion-icon> -->
   </ion-chip>
 </ion-footer>

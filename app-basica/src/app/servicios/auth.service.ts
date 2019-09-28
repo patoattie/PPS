@@ -107,12 +107,13 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => 
       {
+        this.SetUserData(result.user);
+        console.log("Login OK");
+
         this.ngZone.run(() => 
         {
           this.router.navigate(['inicio']);
         });
-        this.SetUserData(result.user);
-        console.log("Login OK");
       })
       .catch((error) => 
       {
@@ -153,8 +154,8 @@ export class AuthService {
 
   // Returns true when user is looged in and email is verified
   /*get*/public  isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user !== null;
+    //const user = JSON.parse(localStorage.getItem('user'));
+    return this.afAuth.auth.currentUser !== null;
   }
 
   // Sign in with Google

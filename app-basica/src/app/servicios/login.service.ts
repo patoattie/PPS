@@ -50,7 +50,7 @@ export class LoginService
  
   updateUsuario(usuario: Usuario): Promise<void> 
   {
-    return this.usuarioCollection.doc(usuario.idCollection).update({ id: usuario.id, correo: usuario.correo, clave: usuario.clave, perfil: usuario.perfil, sexo: usuario.sexo });
+    return this.usuarioCollection.doc(usuario.idCollection).update({ id: usuario.id, correo: usuario.correo, perfil: usuario.perfil, sexo: usuario.sexo });
   }
  
   deleteUsuario(idCollection: string): Promise<void> 
