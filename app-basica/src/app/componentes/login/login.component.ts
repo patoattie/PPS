@@ -33,10 +33,10 @@ export class LoginComponent implements OnInit
     this.error = false;
     this.errorDatos = false;
 
-    this.loginService.getUsuarios().subscribe(
+    /*this.loginService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios,
       error => console.info(error)
-    );
+    );*/
   }
 
   private verificarUsuario(): boolean
@@ -72,14 +72,14 @@ export class LoginComponent implements OnInit
     return this.error;
   }
 
-  public login(): void //Promise<void>
+  public async login(): Promise<void>
   {
     let usuarioValido: boolean;
 
     if(this.formulario.valid)
     {
       //usuarioValido = this.verificarUsuario(); //Lo depreco
-      /*await*/ this.authService.SignIn(this.formulario.value.correo, this.formulario.value.clave);
+      await this.authService.SignIn(this.formulario.value.correo, this.formulario.value.clave);
       usuarioValido = this.authService.isLoggedIn();
       this.error = !usuarioValido;
       this.ok = usuarioValido;

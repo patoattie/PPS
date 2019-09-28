@@ -6,7 +6,8 @@ import { AuthService } from "../../servicios/auth.service";
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss'],
 })
-export class InicioComponent implements OnInit {
+export class InicioComponent implements OnInit 
+{
 
   constructor(public authService: AuthService) { }
 

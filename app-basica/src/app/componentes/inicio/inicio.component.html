@@ -3,14 +3,6 @@
     <ion-title>
       nombreApp
     </ion-title>
-    <ion-chip>
-      <ion-avatar>
-        <!-- <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"> -->
-        <ion-icon name="contact"></ion-icon>
-      </ion-avatar>
-      <ion-label>Email: <strong>{{Usuario.email}}</strong></ion-label>
-      <ion-icon name="close-circle"></ion-icon>
-    </ion-chip>
     <ion-buttons slot="primary">
       <ion-button color="danger" fill="outline" (click)="authService.SignOut()">Salir</ion-button>
     </ion-buttons>
@@ -18,5 +10,20 @@
 </ion-header>
 
 <ion-content>
-
+  <!-- <ion-card>
+    <ion-card-content>
+      <p><strong>ID:</strong>{{authService.getUserData().uid}}</p>
+      <p><strong>Email:</strong>{{authService.getUserData().email}}</p>
+    </ion-card-content>
+  </ion-card> -->
 </ion-content>
+
+<ion-footer>
+  <ion-chip>
+    <ion-avatar>
+      <img src="../../../assets/img/usuario.png" alt="Usuario">
+    </ion-avatar>
+    <ion-label>{{authService.getUserData().email}}</ion-label>
+    <!-- <ion-icon name="close-circle"></ion-icon> -->
+  </ion-chip>
+</ion-footer>

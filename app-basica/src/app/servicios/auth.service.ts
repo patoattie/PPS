@@ -11,7 +11,7 @@ import { Usuario } from "../interfaces/usuario";
   providedIn: 'root'
 })
 export class AuthService {
-  userData: any; // Save logged in user data
+  userData: Usuario; // Save logged in user data
 
   constructor(
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -154,7 +154,7 @@ export class AuthService {
   // Returns true when user is looged in and email is verified
   /*get*/public  isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null /*&& user.emailVerified !== false*/) ? true : false;
+    return user !== null;
   }
 
   // Sign in with Google
@@ -199,7 +199,7 @@ export class AuthService {
     .then(() => 
     {
       localStorage.removeItem('user');
-      //this.router.navigate(['sign-in']);
+      this.router.navigate(['login']);
       console.log("Logout OK");
     })
     .catch((error) => 
@@ -208,4 +208,8 @@ export class AuthService {
     });
   }
 
+  public getUserData(): Usuario 
+  {
+    return JSON.parse(localStorage.getItem('user'));
+  }
 }
