@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit
 {
   private ok: boolean; //Login OK
   private error: boolean; //Login fallido
-  private formulario: FormGroup;
+  public formulario: FormGroup;
   //private usuarios: Usuario[];
   private errorDatos: boolean; //Error en el formato de datos de correo o clave
   private enEspera: boolean; //Muestra u oculta el spinner
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit
     this.formulario = this.formBuilder.group(
       {
         correo: ['', Validators.compose([Validators.pattern("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"), Validators.required])],
-        clave: ['', Validators.compose([Validators.minLength(4), Validators.required])]
+        clave: ['', Validators.compose([Validators.minLength(6), Validators.required])]
       });
   }
 
